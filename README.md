@@ -1,29 +1,62 @@
-# Sniffing-attack-using-Wireshark
-# Ethernet Frame Documentation
+# HTTP Request and Response Documentation
 
-## Overview
-This documentation describes an Ethernet frame captured on interface `en0`, containing IPv6 and TCP packets. The frame consists of 74 bytes on the wire, captured and stored.
+## Request Details
+### POST /userinfo.php HTTP/1.1
+- **Host**: testphp.vulnweb.com
+- **Connection**: keep-alive
+- **Content-Length**: 24
+- **Cache-Control**: max-age=0
+- **Upgrade-Insecure-Requests**: 1
+- **Origin**: http://testphp.vulnweb.com
+- **Content-Type**: application/x-www-form-urlencoded
+- **User-Agent**: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+- **Accept**: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+- **Referer**: http://testphp.vulnweb.com/login.php
+- **Accept-Encoding**: gzip, deflate
+- **Accept-Language**: en-GB,en-US;q=0.9,en;q=0.8
 
-### Frame Details
-- **Bytes on Wire**: 74 bytes (592 bits)
-- **Bytes Captured**: 74 bytes (592 bits)
-- **Interface**: en0
-- **Frame ID**: 0
+Body:
+uname=user&pass=guwgdugj
 
-## Ethernet II
-- **Source MAC Address**: Apple_d4:8c:dd (48:d7:05:d4:8c:dd)
-- **Destination MAC Address**: 92:ad:cf:25:e0:ba
-
-## Internet Protocol Version 6 (IPv6)
-- **Source IP Address**: 2409:40e0:1042:88a2:d44b:9051:abee:7829
-- **Destination IP Address**: 2404:6800:4002:821::200e
-
-## Transmission Control Protocol (TCP)
-- **Source Port**: 56129
-- **Destination Port**: 443
-- **Sequence Number**: 1
-- **Acknowledgment Number**: 1
-- **Length**: 0
+markdown
+Copy code
+## Response Details
+### HTTP/1.1 302 Found
+- **Server**: nginx/1.19.0
+- **Date**: Thu, 14 Mar 2024 19:02:18 GMT
+- **Content-Type**: text/html; charset=UTF-8
+- **Transfer-Encoding**: chunked
+- **Connection**: keep-alive
+- **X-Powered-By**: PHP/5.6.40-38+ubuntu20.04.1+deb.sury.org+1
+- **Location**: login.php
 
 ### Note
-This documentation provides a detailed breakdown of the captured Ethernet frame, including its Ethernet II, IPv6, and TCP components.
+- The request is a POST request to `userinfo.php` with the parameters `uname` and `pass`.
+- The server responds with a 302 Found status, redirecting to `login.php`.
+
+## Subsequent Request Details
+### GET /login.php HTTP/1.1
+- **Host**: testphp.vulnweb.com
+- **Connection**: keep-alive
+- **Cache-Control**: max-age=0
+- **Upgrade-Insecure-Requests**: 1
+- **User-Agent**: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+- **Accept**: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+- **Referer**: http://testphp.vulnweb.com/login.php
+- **Accept-Encoding**: gzip, deflate
+- **Accept-Language**: en-GB,en-US;q=0.9,en;q=0.8
+
+## Subsequent Response Details
+### HTTP/1.1 200 OK
+- **Server**: nginx/1.19.0
+- **Date**: Thu, 14 Mar 2024 19:02:19 GMT
+- **Content-Type**: text/html; charset=UTF-8
+- **Transfer-Encoding**: chunked
+- **Connection**: keep-alive
+- **X-Powered-By**: PHP/5.6.40-38+ubuntu20.04.1+deb.sury.org+1
+- **Content-Encoding**: gzip
+
+### Note
+- The subsequent request is a GET request to `login.php`.
+- The server responds with a 200 OK status.
+- The response contains HTML code for a login page.
